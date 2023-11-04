@@ -5,7 +5,7 @@
         <a href="#">
           <i @click.prevent="$emit('clickOnBtn')" class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{ date }}</span>
+        <span class="black-text">{{ dateFormat }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -57,6 +57,19 @@ export default {
     clearInterval(this.interval)
     if (this.dropdown && this.dropdown.destroy) {
       this.dropdown.destroy()
+    }
+  },
+  computed: {
+    dateFormat() {
+      const options = {
+        year: '2-digit',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      }
+      return new Intl.DateTimeFormat('ru-RU', options).format(this.date);
     }
   }
 }
