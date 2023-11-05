@@ -1,7 +1,5 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import { useVuelidate } from "@vuelidate/core";
-import { required, email } from "@vuelidate/validators";
 import router from "./router";
 import store from "./store";
 import "./registerServiceWorker";
