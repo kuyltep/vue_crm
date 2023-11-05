@@ -4,15 +4,27 @@
       <span class="card-title">Домашняя бухгалтерия</span>
       <div class="input-field">
         <input v-model.trim="email"
-          :class="{ invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email) }" id="email"
-          type="text" class="validate" />
+          :class="{ invalid: (v$.email.$dirty && v$.email.email.$invalid) || (v$.email.$dirty && v$.email.required.$invalid) }"
+          id="email" type="text" name="email" />
         <label for="email">Email</label>
-        <small class="helper-text invalid">Email</small>
+        <small v-if="v$.email.$dirty && v$.email.email.$invalid" class="helper-text invalid">Please input correct
+          email</small>
+        <small v-else-if="v$.email.$dirty && v$.email.required.$invalid" class="helper-text invalid">Please input
+          email</small>
+
+
+
       </div>
       <div class="input-field">
-        <input v-model.trim="password" id="password" type="password" class="validate" />
+        <input v-model.trim="password"
+          :class="{ invalid: (v$.password.$dirty && v$.password.required.$invalid) || (v$.password.$dirty && v$.password.minLength.$invalid) }"
+          id="password" type="password" name="password" />
         <label for="password">Пароль</label>
-        <small class="helper-text invalid">Password</small>
+        <small v-if="v$.password.$dirty && v$.password.minLength.$invalid" class="helper-text invalid">Password length
+          must be more {{ v$.password.minLength.$params.min }}. Now he is {{
+            password.length }}</small>
+        <small v-else-if="v$.password.$dirty && v$.password.required.$invalid" class="helper-text invalid">Please input
+          your password</small>
       </div>
     </div>
     <div class="card-action">
@@ -46,15 +58,24 @@ export default {
   },
   methods: {
     submitHandler() {
+      if (this.v$.$invalid) {
+        this.v$.$touch();
+        return;
+      }
+      const formData = {
+        email: this.email,
+        password: this.password,
+      }
       this.$router.push('/')
     }
   },
   validations() {
     return {
-      email: { email, required },
-      password: { required, minLength: minLength(6) }
+      email: { email, required, },
+      password: { required, minLength: minLength(6), }
     }
 
   }
 }
 </script>
+
