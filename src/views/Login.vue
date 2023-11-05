@@ -45,6 +45,7 @@
 <script>
 import { useVuelidate } from "@vuelidate/core";
 import { required, email, minLength } from "@vuelidate/validators";
+import messages from '@/utils/messages';
 export default {
   name: 'login',
   setup() {
@@ -57,7 +58,7 @@ export default {
     }
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (this.v$.$invalid) {
         this.v$.$touch();
         return;
@@ -66,7 +67,13 @@ export default {
         email: this.email,
         password: this.password,
       }
-      this.$router.push('/')
+      try {
+        await this.$store.dispatch('login', formData)
+        this.$router.push('/')
+      } catch (e) {
+
+      }
+
     }
   },
   validations() {
@@ -75,6 +82,12 @@ export default {
       password: { required, minLength: minLength(6), }
     }
 
+  },
+  mounted() {
+    if (messages[this.$route.query.message]) {
+
+      this.$message(messages[this.$route.query.message]);
+    }
   }
 }
 </script>
