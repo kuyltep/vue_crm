@@ -67,17 +67,22 @@ export default {
     }
   },
   methods: {
-    submitHandler() {
+    async submitHandler() {
       if (this.v$.$invalid) {
         this.v$.$touch();
         return;
       }
-      const fordData = {
+      const formData = {
         email: this.email,
         password: this.password,
         name: this.name,
       }
-      this.$router.push('/')
+      try {
+        await this.$store.dispatch('register', formData)
+        this.$router.push('/')
+      } catch (error) {
+
+      }
     }
   },
   validations() {

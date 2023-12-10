@@ -14,6 +14,7 @@ import "firebase/compat/database";
 const firebaseConfig = {
   apiKey: "AIzaSyCVA4kn_ufNUnCFpmC5ugBVycOP1jUdDoQ",
   authDomain: "vue-crm-b30f9.firebaseapp.com",
+  databaseURL: "https://vue-crm-b30f9-default-rtdb.firebaseio.com",
   projectId: "vue-crm-b30f9",
   storageBucket: "vue-crm-b30f9.appspot.com",
   messagingSenderId: "282649093163",
