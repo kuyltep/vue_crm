@@ -18,7 +18,6 @@ export default {
     async fetchInfo({ dispatch, commit }) {
       try {
         const uid = await dispatch("getUid");
-        console.log(uid);
         await firebase
           .database()
           .ref("/users/" + uid + "/info")

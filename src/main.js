@@ -5,6 +5,7 @@ import store from "./store";
 import messagePlugin from "./utils/message.plugin";
 import "./registerServiceWorker";
 import "materialize-css/dist/js/materialize.min.js";
+import Loader from "@/components/app/Loader";
 
 // Import the functions you need from the SDKs you need
 import firebase from "firebase/compat/app";
@@ -24,6 +25,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 let app;
+
 firebase.initializeApp(firebaseConfig);
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
@@ -31,6 +33,7 @@ firebase.auth().onAuthStateChanged(() => {
       .use(store)
       .use(router)
       .use(messagePlugin)
+      .component("Loader", Loader)
       .mount("#app");
   }
 });

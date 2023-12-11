@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import dateFilter from '@/filters/date.filter'
 export default {
   data() {
     return {
@@ -68,16 +69,9 @@ export default {
       return this.$store.getters.info.bill
     },
     dateFormat() {
-      const options = {
-        year: '2-digit',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-      }
-      return new Intl.DateTimeFormat('ru-RU', options).format(this.date);
+      return dateFilter(this.date)
     }
-  }
+  },
+
 }
 </script>
