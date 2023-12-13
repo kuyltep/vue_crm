@@ -17,5 +17,34 @@ export default {
         throw error;
       }
     },
+    async updateCategory({ dispatch }, { title, limit, id }) {
+      try {
+        const uid = await dispatch("getUid");
+        await firebase
+          .database()
+          .ref(`/users/${uid}/categories`)
+          .child(id)
+          .update({
+            title,
+            limit,
+          });
+      } catch (error) {}
+    },
+    async fetchCategories({ commit, dispatch }) {
+      try {
+        const uid = await dispatch("getUid");
+        const categories =
+          (
+            await firebase
+              .database()
+              .ref(`/users/${uid}/categories`)
+              .once("value")
+          ).val() || {};
+        return Object.keys(categories).map((key) => ({
+          ...categories[key],
+          id: key,
+        }));
+      } catch (error) {}
+    },
   },
 };
