@@ -16,7 +16,7 @@
 
           <tbody>
             <tr v-for="cur of currencies" :key="cur">
-              <td>{{ cur }}</td>
+              <td>{{ currencyFilter(cur) }}</td>
               <td>{{ rates[cur].toFixed(2) }}</td>
               <td>{{ date }}</td>
             </tr>
@@ -36,7 +36,11 @@ export default {
     }
   },
   methods: {
-
+    currencyFilter(cur) {
+      return new Intl.NumberFormat('ru-RU', {
+        style: 'currency', currency: cur
+      }).format(cur).slice(8)
+    }
 
   }
 }

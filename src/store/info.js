@@ -22,13 +22,19 @@ export default {
           .database()
           .ref("/users/" + uid + "/info")
           .once("value", (info) => commit("setInfo", info.val()));
-
-        // const info = await firebase
-        //   .database()
-        //   .ref(`/users/${uid}/info`)
-        //   .once("value", (info) => console.log(info.val()));
       } catch (error) {
         console.log(error);
+      }
+    },
+    async updateInfo({ dispatch, commit, getters }, toUpdate) {
+      try {
+        const uid = await dispatch("getUid");
+        const dataToUpdate = { ...getters.info, ...toUpdate };
+        firebase.database().ref(`/users/${uid}/info`).update(dataToUpdate);
+        commit("setInfo", dataToUpdate);
+      } catch (error) {
+        commit("setError", error);
+        throw error;
       }
     },
   },

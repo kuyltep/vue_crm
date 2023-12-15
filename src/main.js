@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+import tooltipDirective from "./directives/tooltip.directive";
 import messagePlugin from "./utils/message.plugin";
 import "./registerServiceWorker";
 import "materialize-css/dist/js/materialize.min.js";
@@ -33,6 +34,7 @@ firebase.auth().onAuthStateChanged(() => {
       .use(store)
       .use(router)
       .use(messagePlugin)
+      .directive("tooltip", tooltipDirective)
       .component("Loader", Loader)
       .mount("#app");
   }
