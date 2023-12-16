@@ -7,6 +7,7 @@ import messagePlugin from "./utils/message.plugin";
 import "./registerServiceWorker";
 import "materialize-css/dist/js/materialize.min.js";
 import Loader from "@/components/app/Loader";
+import Paginate from "vuejs-paginate-next";
 
 // Import the functions you need from the SDKs you need
 import firebase from "firebase/compat/app";
@@ -36,6 +37,7 @@ firebase.auth().onAuthStateChanged(() => {
       .use(messagePlugin)
       .directive("tooltip", tooltipDirective)
       .component("Loader", Loader)
+      .component("paginate", Paginate)
       .mount("#app");
   }
 });
