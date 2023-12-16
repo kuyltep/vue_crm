@@ -4,8 +4,8 @@
       <h3>История записей</h3>
     </div>
 
-    <div class="history-chart">
-      <canvas></canvas>
+    <div class="history-chart" style="height: 400px;">
+      <canvas ref="canvas"></canvas>
     </div>
 
     <loader v-if="loading"></loader>
@@ -23,28 +23,59 @@
 <script>
 import HistoryTable from '@/components/HistoryTable.vue';
 import paginationMixin from '@/mixins/mixin.pagination';
+import Chart from 'chart.js/auto';
+import category from '@/store/category';
 export default {
   name: 'history',
   mixins: [paginationMixin],
   data() {
     return {
       records: [],
+      categories: [],
       loading: true,
     }
   },
   async mounted() {
     this.records = await this.$store.dispatch('fetchRecords') || [];
-    const categories = await this.$store.dispatch('fetchCategories') || [];
-    this.setupPagination(this.records.map((record, index) => {
-      return {
-        ...record,
-        index: index + 1,
-        categoryName: categories.find(category => category.id === record.categoryId).title,
-        typeText: record.type === 'outcome' ? 'Расход' : 'Доход',
-        typeClass: record.type === 'outcome' ? 'red' : 'green',
-      }
-    }));
+    this.categories = await this.$store.dispatch('fetchCategories') || [];
+    this.setup();
     this.loading = false;
+  },
+  methods: {
+    setup() {
+      this.setupPagination(this.records.map((record, index) => {
+        return {
+          ...record,
+          index: index + 1,
+          categoryName: this.categories.find(category => category.id === record.categoryId).title,
+          typeText: record.type === 'outcome' ? 'Расход' : 'Доход',
+          typeClass: record.type === 'outcome' ? 'red' : 'green',
+        }
+      }));
+
+      new Chart(this.$refs.canvas, {
+        type: 'pie',
+        data: {
+          labels: [...this.categories].map(category => category.title),
+          datasets: [{
+            label: "Расходы по категориям",
+            data: [...this.categories].map(category => {
+              return this.records.reduce((acc, record) => {
+                return record.categoryId === category.id && record.type === 'outcome' ? acc + record.amount : acc;
+              }, 0)
+            }),
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
   },
   components: {
     HistoryTable
