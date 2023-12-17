@@ -1,51 +1,51 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Новая запись</h3>
+      <h3>{{ localeFilter('Record_New-record') }}</h3>
     </div>
     <loader v-if="loading"></loader>
-    <p class="center" v-else-if="!categories.length">Категорий пока нет.<router-link to="/categories"> Добавить новую
-        категорию</router-link></p>
+    <p class="center" v-else-if="!categories.length">{{ localeFilter('No-categories') }}<router-link to="/categories">{{
+      localeFilter('Add-new-category') }}</router-link></p>
     <form v-else class="form" @submit.prevent="submitHandler">
       <div class="input-field">
         <select ref="select" v-model="category">
           <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.title }}</option>
         </select>
-        <label>Выберите категорию</label>
+        <label>{{ localeFilter('Record_Input-category') }}</label>
       </div>
 
       <p>
         <label>
           <input class="with-gap" name="type" type="radio" value="income" v-model="type" />
-          <span>Доход</span>
+          <span>{{ localeFilter("Record_Income") }}</span>
         </label>
       </p>
 
       <p>
         <label>
           <input class="with-gap" name="type" type="radio" value="outcome" v-model="type" />
-          <span>Расход</span>
+          <span>{{ localeFilter('Record_Outcome') }}</span>
         </label>
       </p>
 
       <div class="input-field">
         <input :class="{ invalid: v$.amount.$dirty && v$.amount.minValue.$invalid }" id="amount" type="number"
           v-model.number="amount">
-        <label for="amount">Сумма</label>
-        <span v-if="v$.amount.$dirty && v$.amount.minValue.$invalid" class="helper-text invalid">Сумма должна быть больше
-          1</span>
+        <label for="amount">{{ localeFilter('Record_Sum') }}</label>
+        <span v-if="v$.amount.$dirty && v$.amount.minValue.$invalid" class="helper-text invalid">{{
+          localeFilter('Record_Sum-error') }}</span>
       </div>
 
       <div class="input-field">
         <input :class="{ invalid: v$.description.$dirty && v$.description.required.$invalid }" id="description"
           type="text" v-model="description">
-        <label for="description">Описание</label>
-        <span v-if="v$.description.$dirty && v$.description.required.$invalid" class="helper-text invalid">Введите
-          описание</span>
+        <label for="description">{{ localeFilter('Record_Description') }}</label>
+        <span v-if="v$.description.$dirty && v$.description.required.$invalid" class="helper-text invalid">{{
+          localeFilter('Record_Description-error') }}</span>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Создать
+        {{ localeFilter('Record_Create') }}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import localeFilter from '@/filters/locale.filter';
 import { useVuelidate } from '@vuelidate/core'
 import { required, minValue } from '@vuelidate/validators'
 import Loader from '@/components/app/Loader.vue';
@@ -84,6 +85,7 @@ export default {
     }
   },
   methods: {
+    localeFilter,
     async submitHandler() {
       if (this.v$.$invalid) {
         this.v$.$touch();

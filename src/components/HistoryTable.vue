@@ -3,11 +3,11 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>Сумма</th>
-        <th>Дата</th>
-        <th>Категория</th>
-        <th>Тип</th>
-        <th>Открыть</th>
+        <th>{{ localeFilter('History_Sum') }}</th>
+        <th>{{ localeFilter('History_Date') }}</th>
+        <th>{{ localeFilter('History_Category') }}</th>
+        <th>{{ localeFilter('History_Type') }}</th>
+        <th>{{ localeFilter('History_Open') }}</th>
       </tr>
     </thead>
 
@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import localeFilter from '@/filters/locale.filter';
 export default {
   props: {
     records: {
@@ -40,6 +41,7 @@ export default {
     }
   },
   methods: {
+    localeFilter,
     currencyFilter(cur) {
       return new Intl.NumberFormat('ru-RU', {
         style: 'currency', currency: cur

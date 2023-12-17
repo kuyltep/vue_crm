@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>История записей</h3>
+      <h3>{{ localeFilter('History_History-of-records') }}</h3>
     </div>
 
     <div class="history-chart" style="height: 400px;">
@@ -13,8 +13,8 @@
         запись</router-link></p>
     <section v-else>
       <history-table :records="items"></history-table>
-      <paginate v-model="page" :page-count="pageCounter" :click-handler="pageChangeHandler" :prev-text="'Назад'"
-        :next-text="'Вперед'" :page-class="'waves-effect'" :margin-pages="2" :container-class="'pagination'">
+      <paginate v-model="page" :page-count="pageCounter" :click-handler="pageChangeHandler" :prev-text="`${backText}`"
+        :next-text="`${nextText}`" :page-class="'waves-effect'" :margin-pages="2" :container-class="'pagination'">
       </paginate>
     </section>
   </div>
@@ -25,6 +25,7 @@ import HistoryTable from '@/components/HistoryTable.vue';
 import paginationMixin from '@/mixins/mixin.pagination';
 import Chart from 'chart.js/auto';
 import category from '@/store/category';
+import localeFilter from '@/filters/locale.filter';
 export default {
   name: 'history',
   mixins: [paginationMixin],
@@ -42,6 +43,7 @@ export default {
     this.loading = false;
   },
   methods: {
+    localeFilter,
     setup() {
       this.setupPagination(this.records.map((record, index) => {
         return {
@@ -75,6 +77,14 @@ export default {
           }
         }
       });
+    }
+  },
+  computed: {
+    nextText() {
+      return localeFilter('History_Next-text');
+    },
+    backText() {
+      return localeFilter('History_Back-text');
     }
   },
   components: {

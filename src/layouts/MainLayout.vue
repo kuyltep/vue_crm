@@ -4,7 +4,7 @@
     <div v-else class="app-main-layout">
 
       <navbar @clickOnBtn="isOpen = !isOpen"></navbar>
-      <sidebar :value="isOpen"></sidebar>
+      <sidebar :value="isOpen" :key="locale"></sidebar>
 
       <main :class="{ full: !isOpen }" class="app-content">
         <div class="app-page">
@@ -41,6 +41,11 @@ export default {
       await this.$store.dispatch('fetchInfo')
     }
     this.lodaing = false;
+  },
+  computed: {
+    locale() {
+      return this.$store.getters.info.locale;
+    }
   }
 }
 </script>

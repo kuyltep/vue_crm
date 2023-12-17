@@ -2,7 +2,7 @@
   <div class="col s12 m6 l4">
     <div class="card light-blue bill-card">
       <div class="card-content white-text">
-        <span class="card-title">Счет в валюте</span>
+        <span class="card-title">{{ localeFilter('Home_Account-in-currency') }}</span>
 
         <p class="currency-line" v-for="cur of currencies" :key="cur">
           <span>{{ getCurrency(cur) }}{{ currencyFilter(cur)
@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import localeFilter from '@/filters/locale.filter';
 export default {
   data() {
     return {
@@ -30,6 +31,7 @@ export default {
 
   },
   methods: {
+    localeFilter,
     getCurrency(currency) {
       return Math.floor(this.base * this.rates[currency]);
     },

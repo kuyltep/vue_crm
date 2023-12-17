@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Категории</h3>
+      <h3>{{ localeFilter('Categories_Categories') }}</h3>
     </div>
     <section>
       <loader v-if="loading"></loader>
@@ -9,13 +9,14 @@
         <category-create @created="addNewCategory"></category-create>
         <category-edit v-if="categories.length" @updated="updateCategories" :key="categories.length + updateCount"
           :categories="categories"></category-edit>
-        <p v-else class="{center}">Категорий пока нет</p>
+        <p v-else class="{center}">{{ localeFilter('No-categories') }}</p>
       </div>
     </section>
   </div>
 </template>
 
 <script>
+import localeFilter from '@/filters/locale.filter';
 import CategoryCreate from '@/components/CategoryCreate.vue';
 import CategoryEdit from '@/components/CategoryEdit.vue';
 import Loader from '@/components/app/Loader.vue';
@@ -33,6 +34,7 @@ export default {
     }
   },
   methods: {
+    localeFilter,
     addNewCategory(category) {
       this.categories.push(category);
     },

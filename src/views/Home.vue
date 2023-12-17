@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Счет</h3>
+      <h3>{{ localeFilter('Home_Account') }}</h3>
 
       <button class="btn waves-effect waves-light btn-small">
         <i class="material-icons" @click="refresh">refresh</i>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-
+import localeFilter from '@/filters/locale.filter';
 import HomeBill from '@/components/HomeBill.vue';
 import HomeCurrency from '@/components/HomeCurrency.vue';
 export default {
@@ -36,6 +36,7 @@ export default {
     this.loading = false;
   },
   methods: {
+    localeFilter,
     async refresh() {
       this.loading = true;
       const currency = await this.$store.dispatch('fetchCurrency');

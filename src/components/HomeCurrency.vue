@@ -3,14 +3,14 @@
     <div class="card orange darken-3 bill-card">
       <div class="card-content white-text">
         <div class="card-header">
-          <span class="card-title">Курс валют</span>
+          <span class="card-title">{{ localeFilter("Home_Currency-rates") }}</span>
         </div>
         <table>
           <thead>
             <tr>
-              <th>Валюта</th>
-              <th>Курс</th>
-              <th>Дата</th>
+              <th>{{ localeFilter('Home_Currency') }}</th>
+              <th>{{ localeFilter('Home_Rate') }}</th>
+              <th>{{ localeFilter('Home_Date') }}</th>
             </tr>
           </thead>
 
@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import localeFilter from '@/filters/locale.filter';
 export default {
   props: ['rates', 'date'],
   data() {
@@ -36,6 +37,7 @@ export default {
     }
   },
   methods: {
+    localeFilter,
     currencyFilter(cur) {
       return new Intl.NumberFormat('ru-RU', {
         style: 'currency', currency: cur

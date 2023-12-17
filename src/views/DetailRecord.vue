@@ -3,18 +3,19 @@
     <loader v-if="loading"></loader>
     <div v-else-if="record">
       <div class="breadcrumb-wrap">
-        <router-link to="/history">История</router-link>
+        <router-link to="/history">{{ localeFilter('Detail-Record_History') }}</router-link>
         <a @click.prevent class="breadcrumb">
-          {{ record.type === 'outcome' ? 'Расход' : 'Доход' }}
+          {{ record.type === 'outcome' ? `${localeFilter('Detail-Record_Outcome')}` :
+            `${localeFilter("Detail-Record_Income")}` }}
         </a>
       </div>
       <div class="row">
         <div class="col s12 m6">
           <div :class="[record.type === 'outcome' ? 'red' : 'green']" class="card">
             <div class="card-content white-text">
-              <p>Описание: {{ record.description }}</p>
-              <p>Сумма: {{ record.amount + " " + currencyFilter('RUB') }}</p>
-              <p>Категория: {{ record.categoryName }}</p>
+              <p>{{ localeFilter('Detail-Record_Description') }}: {{ record.description }}</p>
+              <p>{{ localeFilter('Detail-Record_Sum') }}: {{ record.amount + " " + currencyFilter('RUB') }}</p>
+              <p>{{ localeFilter('Detail-Record_Category') }}: {{ record.categoryName }}</p>
 
               <small>{{ dateFilter(record.date) }}</small>
             </div>
@@ -27,6 +28,7 @@
 </template>
 
 <script>
+import localeFilter from '@/filters/locale.filter'
 import Loader from '@/components/app/Loader.vue'
 export default {
   name: 'detail',
@@ -37,7 +39,7 @@ export default {
     }
   },
   methods: {
-
+    localeFilter,
     dateFilter(date) {
       return date.slice(0, 10) + " " + date.slice(11, 19)
     },

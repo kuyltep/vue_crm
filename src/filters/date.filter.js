@@ -1,11 +1,14 @@
+import store from "@/store";
+
 export default function dateFilter(date) {
   const options = {
-    year: "2-digit",
-    month: "2-digit",
     day: "2-digit",
+    month: "long",
+    year: "numeric",
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
   };
-  return new Intl.DateTimeFormat("ru-RU", options).format(date);
+  const locale = store.getters.info.locale || "ru-RU";
+  return new Intl.DateTimeFormat(locale, options).format(date);
 }

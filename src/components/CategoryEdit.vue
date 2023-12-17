@@ -2,7 +2,7 @@
   <div class="col s12 m6">
     <div>
       <div class="page-subtitle">
-        <h4>Редактировать</h4>
+        <h4>{{ localeFilter("Category-Edit_Edit-title") }}</h4>
       </div>
 
       <form @submit.prevent="submitHandler">
@@ -10,24 +10,26 @@
           <select ref="select" v-model="current">
             <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.title }}</option>
           </select>
-          <label>Выберите категорию</label>
+          <label>{{ localeFilter("Category-Edit_Select-category") }}</label>
         </div>
 
         <div class="input-field">
           <input :class="{ error: v$.title.$dirty && v$.title.$invalid }" type="text" id="name" v-model="title" />
-          <label for="name">Название</label>
-          <span class="helper-text invalid" v-if="v$.title.$dirty && v$.title.$invalid">TITLE</span>
+          <label for="name">{{ localeFilter('Category-Edit_Title') }}</label>
+          <span class="helper-text invalid" v-if="v$.title.$dirty && v$.title.$invalid">{{
+            localeFilter('Category-Edit_Title-error') }}</span>
         </div>
 
         <div class="input-field">
           <input :class="{ error: v$.limit.$dirty && v$.limit.minValue.$invalid }" id="limit" type="number"
             v-model="limit" />
-          <label for="limit">Лимит</label>
-          <span v-if="v$.limit.$dirty && v$.limit.minValue.$invalid" class="helper-text invalid">LIMIT</span>
+          <label for="limit">{{ localeFilter('Category-Edit_Limit') }}</label>
+          <span v-if="v$.limit.$dirty && v$.limit.minValue.$invalid" class="helper-text invalid">{{
+            localeFilter('Category-Edit_Limit-error') }}</span>
         </div>
 
         <button class="btn waves-effect waves-light" type="submit">
-          Обновить
+          {{ localeFilter("Category-Edit_Update") }}
           <i class="material-icons right">send</i>
         </button>
       </form>
@@ -36,6 +38,7 @@
 </template>
 
 <script>
+import localeFilter from '@/filters/locale.filter';
 import { useVuelidate } from '@vuelidate/core'
 import { required, minValue } from '@vuelidate/validators'
 export default {
@@ -57,6 +60,7 @@ export default {
     }
   },
   methods: {
+    localeFilter,
     async submitHandler() {
       if (this.v$.$invalid) {
         this.v$.$touch();
