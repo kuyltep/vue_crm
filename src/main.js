@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import meta from "vue-meta";
 import router from "./router";
 import store from "./store";
 import tooltipDirective from "./directives/tooltip.directive";
@@ -9,7 +8,6 @@ import "./registerServiceWorker";
 import "materialize-css/dist/js/materialize.min.js";
 import Loader from "@/components/app/Loader";
 import Paginate from "vuejs-paginate-next";
-import localeFilter from "./filters/locale.filter";
 
 // Import the functions you need from the SDKs you need
 import firebase from "firebase/compat/app";
@@ -29,14 +27,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 let app;
-
 firebase.initializeApp(firebaseConfig);
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = createApp(App)
       .use(store)
       .use(router)
-      .use(meta)
       .use(messagePlugin)
       .directive("tooltip", tooltipDirective)
       .component("Loader", Loader)

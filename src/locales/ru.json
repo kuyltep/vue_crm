@@ -22,7 +22,10 @@
   "History_Category": "Категория",
   "History_Type": "Тип",
   "History_Open": "Открыть",
+  "History_Tooltip": "Посмотерть запись",
   "Planning_Planning": "Планирование",
+  "Planning_Left": "Осталось",
+  "Planning_Excess": "Превышение на",
   "Planning_Of": "из",
   "No-categories": "Категорий пока нет.",
   "Add-new-category": "Добавить новую категорию",
@@ -62,5 +65,14 @@
   "Home-Accounting_Agree": "С правилами согласен",
   "Home-Accounting_Register": "Зарегистрироваться",
   "Home-Accounting_Have-account": "Уже есть аккаунт?",
-  "Home-Accounting_Sing-in": "Войти!"
+  "Home-Accounting_Sing-in": "Войти!",
+  "Home": "Главная",
+  "History": "История",
+  "Record": "Запись",
+  "Record-detail": "Описание записи",
+  "Login": "Логин",
+  "Categories": "Категории",
+  "Planning": "Планирование",
+  "Profile": "Профиль",
+  "Register": "Регситрация"
 }

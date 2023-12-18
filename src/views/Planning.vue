@@ -60,7 +60,7 @@ export default {
       const progressColor = progressPercent < 60 ? 'green' : progressPercent < 100 ? 'yellow' : 'red';
 
       const tooltipValue = cat.limit - spend;
-      const tooltip = `${tooltipValue > 0 ? 'Осталось' : 'Превышение на'} ${this.formatCurrency(Math.abs(tooltipValue))}`
+      const tooltip = `${tooltipValue > 0 ? `${localeFilter('Planning_Left')}` : `${localeFilter('Plannig_Excess')}`} ${this.formatCurrency(Math.abs(tooltipValue))}`
 
       return {
         ...cat,

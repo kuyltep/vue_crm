@@ -1,4 +1,5 @@
 <template>
+  <metainfo></metainfo>
   <div>
     <div class="page-title">
       <h3>{{ localeFilter('Profile-title') }}</h3>
@@ -34,8 +35,12 @@ import { required } from '@vuelidate/validators'
 import { mapGetters, mapActions } from 'vuex';
 import localeFilter from '@/filters/locale.filter';
 export default {
+  name: 'Profile',
   setup() {
-    return { v$: useVuelidate() }
+
+    return { v$: useVuelidate() };
+
+
   },
   data() {
     return {
@@ -43,6 +48,7 @@ export default {
       isRuLocale: true,
     }
   },
+
   mounted() {
     this.isRuLocale = this.info.locale === 'ru-RU';
     this.name = this.info.name;
@@ -50,6 +56,7 @@ export default {
   },
   computed: {
     ...mapGetters(['info']),
+
   },
   methods: {
     ...mapActions(['updateInfo']),
@@ -64,7 +71,6 @@ export default {
           name: this.name,
           locale: this.isRuLocale ? 'ru-RU' : 'en-US',
         });
-
       } catch (error) {
 
       }

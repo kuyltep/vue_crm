@@ -21,7 +21,7 @@
           <span class="white-text badge" :class="[record.typeClass]">{{ record.typeText }}</span>
         </td>
         <td>
-          <button class="btn-small btn" v-tooltip="'Посмотерть запись'"
+          <button class="btn-small btn" v-tooltip="`${localeFilter('History_Tooltip')}`"
             @click="$router.push(`/detail-record/${record.id}`)">
             <i class="material-icons">open_in_new</i>
           </button>

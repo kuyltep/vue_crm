@@ -22,6 +22,9 @@
   "History_Category": "Category",
   "History_Type": "Type",
   "History_Open": "Open",
+  "History_Tooltip": "Show record",
+  "Planning_Left": "Left",
+  "Plannig_Excess": "Excess on",
   "Planning_Planning": "Planning",
   "Planning_Of": "of",
   "No-categories": "No categories",
@@ -62,5 +65,14 @@
   "Home-Accounting_Agree": "Agree with rules",
   "Home-Accounting_Register": "Register",
   "Home-Accounting_Have-account": "Already have an account?",
-  "Home-Accounting_Sing-in": "Sign in!"
+  "Home-Accounting_Sing-in": "Sign in!",
+  "Home": "Home",
+  "History": "History",
+  "Record": "Record",
+  "Record-detail": "Record-detail",
+  "Login": "Login",
+  "Categories": "Categories",
+  "Planning": "Planning",
+  "Profile": "Profile",
+  "Register": "Register"
 }
